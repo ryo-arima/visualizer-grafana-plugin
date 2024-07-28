@@ -1,0 +1,12 @@
+{
+  "panels": [
+    {
+      "title": "Panel Title",
+      "type": "linuxmonitor-linuxmonitor-panel"
+    }
+  ],
+  "title": "Provisioned linuxmonitor dashboard",
+  "uid": "a538aeff-5a8a-42a5-901c-938d896fdd6f",
+  "version": 1,
+  "weekStart": ""
+}
