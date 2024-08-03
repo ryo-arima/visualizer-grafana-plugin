@@ -44,6 +44,42 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
     }
 
     scene.add(group);
+
+    // 虹色の棒グラフのセットアップ
+    const barGroup = new THREE.Group();
+    const barGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const rainbowColors = [0xff0000, 0xff7f00, 0xffff00, 0x00ff00, 0x0000ff, 0x4b0082, 0x9400d3];
+
+    for (let i = 0; i < 7; i++) {
+      const barMaterial = new THREE.MeshBasicMaterial({ color: rainbowColors[i] });
+      const bar = new THREE.Mesh(barGeometry, barMaterial);
+      bar.position.x = i * 2 - 7;
+      bar.position.y = 15;
+      bar.scale.y = Math.random() * 5 + 1; // ランダムな高さで初期化
+      barGroup.add(bar);
+    }
+
+    barGroup.position.set(0, 0, 5);
+    scene.add(barGroup);
+
+    // 折れ線グラフのセットアップ
+    const lineGroup = new THREE.Group();
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+
+    for (let k = 0; k < 5; k++) {
+      const points = [];
+      for (let i = 0; i < 10; i++) {
+        points.push(new THREE.Vector3(i * 2 - 9, Math.random() * 10 - 5, 0));
+      }
+      const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
+      const line = new THREE.Line(lineGeometry, lineMaterial);
+      line.position.y = -15 + k * 5;
+      lineGroup.add(line);
+    }
+
+    lineGroup.position.set(0, 0, 5);
+    scene.add(lineGroup);
+
     camera.position.z = zoom;
 
     // OrbitControls のセットアップ
@@ -59,9 +95,20 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // 回転の部分をコメントアウトまたは削除
-      // group.rotation.x += 0.01;
-      // group.rotation.y += 0.01;
+      // 虹色の棒グラフのアニメーション
+      barGroup.children.forEach((bar, index) => {
+        bar.scale.y = Math.sin(Date.now() * 0.001 + index) * 2 + 3; // サイン波で高さを変更
+      });
+
+      // 折れ線グラフのアニメーション
+      lineGroup.children.forEach((line, index) => {
+        const lineGeometry = line.geometry as THREE.BufferGeometry;
+        const linePositions = lineGeometry.attributes.position.array as Float32Array;
+        for (let i = 1; i < linePositions.length / 3; i++) {
+          linePositions[i * 3 + 1] = Math.sin(Date.now() * 0.001 + i + index) * 5; // サイン波でY座標を変更
+        }
+        lineGeometry.attributes.position.needsUpdate = true;
+      });
 
       camera.position.z = zoom;
 
