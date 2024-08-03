@@ -21,6 +21,14 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
     renderer.setSize(width, height);
     mountRef.current.appendChild(renderer.domElement);
 
+    // 平面グリッドのセットアップ
+    const gridHelper = new THREE.GridHelper(30, 30);
+    scene.add(gridHelper);
+
+    // XYZ軸のセットアップ
+    const axesHelper = new THREE.AxesHelper(15);
+    scene.add(axesHelper);
+
     // キューブグループのセットアップ
     const group = new THREE.Group();
     const geometry = new THREE.BoxGeometry(1, 1, 1);
