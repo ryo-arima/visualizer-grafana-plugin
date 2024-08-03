@@ -44,17 +44,22 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
     controls.dampingFactor = 0.25; // 慣性の速さ
     controls.enableZoom = false; // ズームを無効にする
 
+    const renderScene = () => {
+      renderer.render(scene, camera);
+    };
+
     const animate = () => {
       requestAnimationFrame(animate);
 
-      group.rotation.x += 0.01;
-      group.rotation.y += 0.01;
+      // 回転の部分をコメントアウトまたは削除
+      // group.rotation.x += 0.01;
+      // group.rotation.y += 0.01;
 
       camera.position.z = zoom;
 
       controls.update();
 
-      renderer.render(scene, camera);
+      renderScene();
     };
 
     animate();
