@@ -16,7 +16,7 @@ test('should display circle when data is passed to the panel', async ({
 }) => {
   const ds = await readProvisionedDataSource({ fileName: 'datasources.yml' });
   await panelEditPage.datasource.set(ds.name);
-  await panelEditPage.setVisualization('Linuxmonitor');
+  await panelEditPage.setVisualization('Visualizer');
   await expect(page.getByTestId('simple-panel-circle')).toBeVisible();
 });
 
@@ -28,11 +28,11 @@ test('should display series counter when "Show series counter" option is enabled
 }) => {
   const ds = await readProvisionedDataSource({ fileName: 'datasources.yml' });
   await panelEditPage.datasource.set(ds.name);
-  await panelEditPage.setVisualization('Linuxmonitor');
-  await panelEditPage.collapseSection('Linuxmonitor');
+  await panelEditPage.setVisualization('Visualizer');
+  await panelEditPage.collapseSection('Visualizer');
   await expect(page.getByTestId('simple-panel-circle')).toBeVisible();
   const showSeriesSwitch = panelEditPage
-    .getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel('Linuxmonitor Show series counter'))
+    .getByGrafanaSelector(selectors.components.PanelEditor.OptionsPane.fieldLabel('Visualizer Show series counter'))
     .getByLabel('Toggle switch');
   await showSeriesSwitch.click();
   await expect(page.getByTestId('simple-panel-series-counter')).toBeVisible();

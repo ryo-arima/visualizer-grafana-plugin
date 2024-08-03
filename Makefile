@@ -1,3 +1,3 @@
 run:
-	yarn run build
+	npm run build
 	docker-compose up --build
