@@ -7,7 +7,7 @@ import { Input } from '@grafana/ui';
 
 interface Props extends PanelProps<SimpleOptions> {}
 
-export const SimplePanel: React.FC<Props> = ({ width, height }) => {
+export const MainPanel: React.FC<Props> = ({ width, height }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [zoom, setZoom] = useState(50);
 
