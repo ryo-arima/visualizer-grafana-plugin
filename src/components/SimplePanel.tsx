@@ -34,11 +34,11 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
 
-    for (let i = 0; i < 30; i++) {
-      for (let j = 0; j < 30; j++) {
+    for (let i = 0; i < 15; i++) {
+      for (let j = 0; j < 15; j++) {
         const cube = new THREE.Mesh(geometry, material);
-        cube.position.x = i - 15; // キューブの位置を調整
-        cube.position.y = j - 15;
+        cube.position.x = i; // キューブの位置を調整
+        cube.position.y = j;
         group.add(cube);
       }
     }
@@ -109,8 +109,6 @@ export const SimplePanel: React.FC<Props> = ({ width, height }) => {
         }
         lineGeometry.attributes.position.needsUpdate = true;
       });
-
-      camera.position.z = zoom;
 
       controls.update();
 
